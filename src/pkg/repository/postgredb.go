@@ -28,7 +28,7 @@ func (p postgreDB) Init(schema string) {
 
 func (p postgreDB) Get(query string, getRedirect model.GetRedirect) (Redirect, error) {
 	redirect := new(Redirect)
-	err := p.db.Get(redirect, query, string(getRedirect.From))
+	err := p.db.Get(redirect, query, getRedirect.From)
 
 	return *redirect, err
 }
@@ -39,7 +39,7 @@ func (p postgreDB) Create(query string, redirect model.CreateRedirect) error {
 		return tryRollback(err, tx.Rollback)
 	}
 
-	if _, err = tx.Query(query, string(redirect.From), string(redirect.To)); err != nil {
+	if _, err = tx.Query(query, redirect.From, redirect.To); err != nil {
 		return tryRollback(err, tx.Rollback)
 	}
 

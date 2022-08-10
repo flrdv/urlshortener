@@ -3,12 +3,11 @@ package service
 import (
 	"urlshortener/src/pkg/model"
 	"urlshortener/src/pkg/repository"
-	"urlshortener/src/pkg/types"
 )
 
 type URLShortenerService interface {
 	CreateRedirect(redirect model.CreateRedirect) error
-	GetRedirect(redirect model.GetRedirect) (types.URL, error)
+	GetRedirect(redirect model.GetRedirect) (string, error)
 }
 
 type urlShortenerService struct {
@@ -22,9 +21,9 @@ func NewURLShortenerService(dbRepo repository.DBRepo) URLShortenerService {
 }
 
 func (u urlShortenerService) CreateRedirect(redirect model.CreateRedirect) error {
-	return u.dbRepo.CreateRedirect(redirect.From, redirect.To)
+	return u.dbRepo.CreateRedirect(redirect)
 }
 
-func (u urlShortenerService) GetRedirect(redirect model.GetRedirect) (types.URL, error) {
-	return u.dbRepo.GetRedirect(redirect.From)
+func (u urlShortenerService) GetRedirect(redirect model.GetRedirect) (string, error) {
+	return u.dbRepo.GetRedirect(redirect)
 }

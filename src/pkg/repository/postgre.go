@@ -5,8 +5,13 @@ import (
 
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
-	"urlshortener/src/pkg/types"
 )
+
+type DBRepo interface {
+	Init()
+	CreateRedirect(redirect model.CreateRedirect) error
+	GetRedirect(redirect model.GetRedirect) (to string, err error)
+}
 
 var schema = `
 CREATE TABLE redirects (
@@ -16,8 +21,8 @@ CREATE TABLE redirects (
 `
 
 type Redirect struct {
-	From types.URL `db:"from"`
-	To   types.URL `db:"to"`
+	From string `db:"from"`
+	To   string `db:"to"`
 }
 
 type postgreRepository struct {
@@ -38,7 +43,7 @@ func (p postgreRepository) CreateRedirect(createRedirect model.CreateRedirect) e
 	return p.db.Create("INSERT INTO redirects VALUES ($1, $2)", createRedirect)
 }
 
-func (p postgreRepository) GetRedirect(getRedirect model.GetRedirect) (to types.URL, err error) {
+func (p postgreRepository) GetRedirect(getRedirect model.GetRedirect) (to string, err error) {
 	redirect, err := p.db.Get("SELECT from, to FROM redirects WHERE from=$1", getRedirect)
 	return redirect.To, err
 }

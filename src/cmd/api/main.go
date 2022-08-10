@@ -29,7 +29,9 @@ func RunURLShortener(cfg config.Config) error {
 
 	dbRepo := repository.NewDBRepo(db)
 	shortenerService := service.NewURLShortenerService(dbRepo)
-	netHTTPController := controller.NewHTTPController(shortenerService)
+	linkRepo := repository.NewLinkRepository()
+	linkService := service.NewLinkService(linkRepo)
+	netHTTPController := controller.NewHTTPController(shortenerService, linkService)
 
 	http.HandleFunc("/shorten", func(w http.ResponseWriter, req *http.Request) {
 		switch req.Method {
