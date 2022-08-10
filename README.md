@@ -16,7 +16,7 @@ First, install and setup PostgreSQL
 Then, run this command:
 
 ```bash
-$ git clone https://github.com/fakefloordiv/urlshortener
+git clone https://github.com/fakefloordiv/urlshortener
 ```
 
 After that, go to deployment/ and fill example.env, but with your own values
