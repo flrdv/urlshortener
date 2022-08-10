@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"fmt"
 	"io"
 	"net/http"
 	"urlshortener/src/pkg/model"
@@ -44,6 +45,10 @@ func (n netHTTPController) CreateRedirect(w http.ResponseWriter, req *http.Reque
 	if err = n.shortenerService.CreateRedirect(redirect); err != nil {
 		http.Error(w, "internal server error", http.StatusInternalServerError)
 	}
+
+	if _, err = fmt.Fprint(w, redirect.To); err != nil {
+		http.Error(w, "internal server error", http.StatusInternalServerError)
+	}
 }
 
 func (n netHTTPController) DoRedirect(w http.ResponseWriter, req *http.Request) {
@@ -58,5 +63,5 @@ func (n netHTTPController) DoRedirect(w http.ResponseWriter, req *http.Request) 
 		return
 	}
 
-	http.Redirect(w, req, string(redirectTo), http.StatusFound)
+	http.Redirect(w, req, redirectTo, http.StatusFound)
 }
