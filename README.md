@@ -6,7 +6,7 @@ This is pretty simple API for url shortening. Written for portfolio, so using Cl
 - POST /shorten:
   - Request body must be a valid url I can redirect to
   - Responds with id
-- GET /<id>:
+- GET /\<id\>:
   - Redirects you to url was specified in body of request to the /shorten endpoint
   
 # How to run
