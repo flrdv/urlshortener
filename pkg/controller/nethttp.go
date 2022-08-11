@@ -4,18 +4,18 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"urlshortener/src/pkg/model"
-	"urlshortener/src/pkg/service"
+	"urlshortener/pkg/model"
+	service2 "urlshortener/pkg/service"
 )
 
 type netHTTPController struct {
-	shortenerService service.URLShortenerService
-	linkService      service.LinkService
+	shortenerService service2.URLShortenerService
+	linkService      service2.LinkService
 }
 
 func NewHTTPController(
-	shortenerService service.URLShortenerService,
-	linkService service.LinkService) NetHTTPController {
+	shortenerService service2.URLShortenerService,
+	linkService service2.LinkService) NetHTTPController {
 	return netHTTPController{
 		shortenerService: shortenerService,
 		linkService:      linkService,
