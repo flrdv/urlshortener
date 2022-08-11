@@ -1,6 +1,8 @@
 package repository
 
-import "github.com/teris-io/shortid"
+import (
+	"github.com/teris-io/shortid"
+)
 
 type LinkRepository interface {
 	Generate() (string, error)
