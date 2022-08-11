@@ -8,6 +8,11 @@ import (
 	service2 "urlshortener/pkg/service"
 )
 
+type NetHTTPController interface {
+	CreateRedirect(w http.ResponseWriter, req *http.Request)
+	DoRedirect(w http.ResponseWriter, req *http.Request)
+}
+
 type netHTTPController struct {
 	shortenerService service2.URLShortenerService
 	linkService      service2.LinkService
