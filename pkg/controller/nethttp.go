@@ -4,8 +4,9 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	
 	"urlshortener/pkg/model"
-	service2 "urlshortener/pkg/service"
+	"urlshortener/pkg/service"
 )
 
 type NetHTTPController interface {
@@ -14,13 +15,13 @@ type NetHTTPController interface {
 }
 
 type netHTTPController struct {
-	shortenerService service2.URLShortenerService
-	linkService      service2.LinkService
+	shortenerService service.URLShortenerService
+	linkService      service.LinkService
 }
 
 func NewHTTPController(
-	shortenerService service2.URLShortenerService,
-	linkService service2.LinkService) NetHTTPController {
+	shortenerService service.URLShortenerService,
+	linkService service.LinkService) NetHTTPController {
 	return netHTTPController{
 		shortenerService: shortenerService,
 		linkService:      linkService,
@@ -49,6 +50,7 @@ func (n netHTTPController) CreateRedirect(w http.ResponseWriter, req *http.Reque
 
 	if err = n.shortenerService.CreateRedirect(redirect); err != nil {
 		http.Error(w, "internal server error", http.StatusInternalServerError)
+		return
 	}
 
 	if _, err = fmt.Fprint(w, redirect.To); err != nil {
