@@ -1,9 +1,10 @@
 package repository
 
 import (
+	"urlshortener/pkg/model"
+
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
-	"urlshortener/pkg/model"
 )
 
 type DBRepo interface {

@@ -1,9 +1,10 @@
 package repository
 
 import (
+	"urlshortener/pkg/model"
+
 	"github.com/jmoiron/sqlx"
 	"github.com/pkg/errors"
-	"urlshortener/pkg/model"
 )
 
 type PostgreDB interface {
