@@ -1,7 +1,7 @@
 package service
 
 import (
-	"urlshortener/src/pkg/repository"
+	"urlshortener/pkg/repository"
 )
 
 type LinkService interface {

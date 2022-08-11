@@ -1,8 +1,8 @@
 package service
 
 import (
-	"urlshortener/src/pkg/model"
-	"urlshortener/src/pkg/repository"
+	"urlshortener/pkg/model"
+	"urlshortener/pkg/repository"
 )
 
 type URLShortenerService interface {

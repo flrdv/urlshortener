@@ -6,10 +6,10 @@ import (
 	_ "github.com/lib/pq"
 	"log"
 	"net/http"
-	"urlshortener/src/internal/config"
-	"urlshortener/src/pkg/controller"
-	"urlshortener/src/pkg/repository"
-	"urlshortener/src/pkg/service"
+	"urlshortener/internal/config"
+	"urlshortener/pkg/controller"
+	repository2 "urlshortener/pkg/repository"
+	service2 "urlshortener/pkg/service"
 )
 
 func main() {
@@ -27,10 +27,10 @@ func RunURLShortener(cfg config.Config) error {
 		return err
 	}
 
-	dbRepo := repository.NewDBRepo(db)
-	shortenerService := service.NewURLShortenerService(dbRepo)
-	linkRepo := repository.NewLinkRepository()
-	linkService := service.NewLinkService(linkRepo)
+	dbRepo := repository2.NewDBRepo(db)
+	shortenerService := service2.NewURLShortenerService(dbRepo)
+	linkRepo := repository2.NewLinkRepository()
+	linkService := service2.NewLinkService(linkRepo)
 	netHTTPController := controller.NewHTTPController(shortenerService, linkService)
 
 	mux := http.NewServeMux()
